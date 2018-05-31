@@ -13,7 +13,7 @@ export class HelloWorldModel extends Observable {
     onScanPress() {
         requestPermissions().then(
             () => {
-                console.log("perismos dados");
+                console.log("permissions");
                 this.cardio.onScan().then(
                     (data) => {
                         console.log(data);
@@ -22,7 +22,7 @@ export class HelloWorldModel extends Observable {
                     }
                 );
             }, () => {
-                console.log("permissions neged");
+                console.log("permissions denied");
             }
         );
     }
