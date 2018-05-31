@@ -1,14 +1,29 @@
 import { Observable } from 'tns-core-modules/data/observable';
-import { Cardio } from 'nativescript-cardio';
+import { Cardio, requestPermissions } from 'nativescript-cardio';
 
 export class HelloWorldModel extends Observable {
-  public message: string;
-  private cardio: Cardio;
 
-  constructor() {
-    super();
+    private cardio: Cardio;
 
-    this.cardio = new Cardio();
-    this.message = this.cardio.message;
-  }
+    constructor() {
+        super();
+        this.cardio = new Cardio();
+    }
+
+    onScanPress() {
+        requestPermissions().then(
+            () => {
+                console.log("perismos dados");
+                this.cardio.onScan().then(
+                    (data) => {
+                        console.log(data);
+                    }, (error) => {
+                        console.log(error);
+                    }
+                );
+            }, () => {
+                console.log("permissions neged");
+            }
+        );
+    }
 }
